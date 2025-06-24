@@ -1,38 +1,29 @@
-import { obtenerEventosAntiguos } from "@/lib/eventoService";
+import dynamic from "next/dynamic";
+import Link from "next/link";
 
-export async function getServerSideProps() {
-  const eventos = await obtenerEventosAntiguos();
-  return {
-    props: {
-      eventos: JSON.parse(JSON.stringify(eventos)),
-    },
-  };
-}
+const UltimoEvento = dynamic(() => import("@/components/UltimoEvento"), { ssr: false });
+const FiltrarEventosPorFecha = dynamic(() => import("@/components/FiltrarEventosPorFecha"), { ssr: false });
 
-export default function Zona({ eventos }) {
+export default function Zona() {
   return (
     <div className="container mt-5">
-      <h2 className="text-center mb-4">Estado actual de la zona</h2>
-      <table className="table table-bordered table-hover">
-        <thead className="table-dark">
-          <tr>
-            <th>ID</th>
-            <th>Sensor</th>
-            <th>Estado</th>
-            <th>Fecha y Hora</th>
-          </tr>
-        </thead>
-        <tbody>
-          {eventos.map((e) => (
-            <tr key={e.id}>
-              <td>{e.id}</td>
-              <td>{e.sensor_id}</td>
-              <td>{e.estado}</td>
-              <td>{new Date(e.fecha_hora).toLocaleString()}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <h2 className="text-center mb-4">Panel de Monitoreo</h2>
+
+      <div className="row">
+        <div className="col-md-6 mb-4">
+          <h4 className="text-center mb-3">Estado Actual</h4>
+          <UltimoEvento />
+          <div className="text-center mt-4">
+            <Link href="/" legacyBehavior>
+              <a className="btn btn-secondary">Volver al inicio</a>
+            </Link>
+          </div>
+        </div>
+        <div className="col-md-6 mb-4">
+          <h4 className="text-center mb-3">Buscar por Fecha</h4>
+          <FiltrarEventosPorFecha />
+        </div>
+      </div>
     </div>
   );
 }

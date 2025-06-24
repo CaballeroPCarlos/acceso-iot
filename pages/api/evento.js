@@ -4,7 +4,7 @@ export default async function handler(req, res) {
   if (req.method === "POST") {
     const { sensor_id, estado } = req.body;
 
-    if (!sensor_id || !estado) {
+    if (!sensor_id?.trim() || !estado?.trim()) {
       return res.status(400).json({ error: "Faltan datos requeridos" });
     }
 
