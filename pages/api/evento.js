@@ -12,7 +12,7 @@ export default async function handler(req, res) {
 
     if (!ESTADOS_VALIDOS.includes(estado)) {
       return res.status(400).json({
-        error: `Estado inválido. Solo se permiten: ${ESTADOS_VALIDOS.join(", ")}`,
+        error: `Estado inválido.`,
       });
     }
 
