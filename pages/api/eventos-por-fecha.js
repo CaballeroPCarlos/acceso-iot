@@ -7,11 +7,9 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: "Falta el parámetro 'fecha'." });
   }
 
-  const inicio = new Date(fecha);
-  if (isNaN(inicio.getTime())) {
-    return res.status(400).json({ error: "Fecha inválida." });
-  }
-
+  // Interpretar la fecha como si fuera en UTC-5
+  const desfaseHoras = 5; // Perú = UTC-5
+  const inicio = new Date(`${fecha}T00:00:00-05:00`);
   const fin = new Date(inicio);
   fin.setDate(fin.getDate() + 1);
 
