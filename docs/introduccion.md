@@ -1,0 +1,3 @@
+## 1. Introducción
+
+Este sistema tiene como propósito monitorear eventos registrados por sensores de movimiento y gestionar turnos laborales del personal asociado. Está diseñado para registrar, consultar y analizar la actividad en tiempo real o por fechas específicas. La aplicación está construida con Next.js como framework principal, React para la interfaz, y Prisma ORM con una base de datos PostgreSQL para la persistencia de datos. El sistema está orientado a ambientes donde se requiere supervisión automatizada de presencia o actividad, como fábricas, oficinas o instalaciones con vigilancia IoT.
