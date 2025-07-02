@@ -18,37 +18,23 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Obtener fecha actual en Lima (UTC-5)
-    const ahora = new Date();
-    const parts = new Intl.DateTimeFormat("en-CA", {
+    // Obtener la fecha actual en Lima (formato ISO)
+    const fechaActualLima = new Date().toLocaleDateString("en-CA", {
       timeZone: "America/Lima",
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: false,
-    }).formatToParts(ahora).reduce((acc, part) => {
-      if (part.type !== "literal") acc[part.type] = part.value;
-      return acc;
-    }, {});
+    }); // formato "YYYY-MM-DD"
 
-    const anio = parseInt(parts.year);
-    const mes = parseInt(parts.month) - 1;
-    const dia = parseInt(parts.day);
+    // Combinar fecha con hora y zona horaria -05:00
+    const inicioStr = `${fechaActualLima}T${hora_inicio}:00-05:00`;
+    const finStr = `${fechaActualLima}T${hora_fin}:00-05:00`;
 
-    // Construir fechas locales (hora Lima)
-    const [hIni, mIni] = hora_inicio.split(":").map(Number);
-    const [hFin, mFin] = hora_fin.split(":").map(Number);
+    let inicioLocal = new Date(inicioStr);
+    let finLocal = new Date(finStr);
 
-    let inicioLocal = new Date(anio, mes, dia, hIni, mIni);
-    let finLocal = new Date(anio, mes, dia, hFin, mFin);
-
+    // Si el turno cruza la medianoche
     if (finLocal <= inicioLocal) {
       finLocal.setDate(finLocal.getDate() + 1);
     }
 
-    // No sumar desfase manual: Prisma guarda en UTC automáticamente
     const duracionHoras = (finLocal - inicioLocal) / (1000 * 60 * 60);
     if (duracionHoras < 4 || duracionHoras > 8) {
       return res.status(400).json({
