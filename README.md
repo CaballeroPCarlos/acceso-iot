@@ -1,6 +1,6 @@
 # Proyecto Next.js + Prisma (con PostgreSQL)
 
-Este proyecto contiene una configuración base para iniciar un desarrollo web moderno utilizando **Next.js** y **Prisma** como ORM para bases de datos (probado con Neos Postgres).
+Este proyecto contiene una configuración base para iniciar un desarrollo web moderno utilizando **Next.js** y **Prisma** como ORM para bases de datos (probado con Neon Postgres).
 
 ---
 

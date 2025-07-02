@@ -1,25 +1,31 @@
-// components/UltimoEvento.js
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-export default function UltimoEvento() {
+export default function UltimoEvento({ onMovimientoNuevo }) {
   const [evento, setEvento] = useState(null);
+  const idAnteriorRef = useRef(null); // <- se mantiene entre renders
 
   useEffect(() => {
     const obtenerEvento = async () => {
       try {
         const res = await fetch("/api/ultimo-evento");
         const data = await res.json();
+
+        if (data?.id !== idAnteriorRef.current && data.estado === "movimiento_detectado") {
+          idAnteriorRef.current = data.id;
+          onMovimientoNuevo?.(); // solo si es nuevo y es "movimiento_detectado"
+        }
+
         setEvento(data);
       } catch (err) {
         console.error("❌ Error al obtener evento:", err);
       }
     };
 
-    obtenerEvento(); // Primera carga
-    const intervalo = setInterval(obtenerEvento, 10000); // Cada 10 s
+    obtenerEvento(); // carga inicial
+    const intervalo = setInterval(obtenerEvento, 10000); // cada 10 s
 
     return () => clearInterval(intervalo);
-  }, []);
+  }, [onMovimientoNuevo]);
 
   if (!evento) return <p className="text-center">🔄 Cargando estado actual...</p>;
 

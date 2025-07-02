@@ -13,3 +13,20 @@ model Evento {
   estado     String
   fecha_hora DateTime @default(now())
 }
+
+model Empleado {
+  id               Int      @id @default(autoincrement())
+  nombres          String
+  apellidos        String
+  dni              String   @unique
+  huella_registrada Boolean  @default(false)
+  contratos        Contrato[]
+}
+
+model Contrato {
+  id         Int       @id @default(autoincrement())
+  empleado   Empleado  @relation(fields: [empleadoId], references: [id])
+  empleadoId Int
+  hora_inicio DateTime
+  hora_fin    DateTime
+}
