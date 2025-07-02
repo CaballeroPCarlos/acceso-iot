@@ -6,4 +6,5 @@
 - [Endpoints de la API](docs/4-api.md)
 - [Notas de Despliegue y Entorno](docs/5-despliegue.md)
 - [Modelo de Datos](docs/6-modelo-datos.md)
-- [Proyecto Next.js + Prisma (con PostgreSQL)](docs/7-consideraciones.md)
+- [Manual de Usuario](docs/8-MANUAL_USUARIO.md)
+- [Como crear y ejecutar un proyecto Node.js y enlazarla a una base de datos](docs/7-consideraciones.md)
