@@ -1,6 +1,6 @@
 # 📘 DOCUMENTACIÓN TÉCNICA
 
-- [Responsables] (docs/0-responsables.md)
+- [Responsables](docs/0-responsables.md)
 - [Introducción](docs/1-introduccion.md)
 - [Configuración del Proyecto](docs/2-configuracion.md)
 - [Interfaz de Usuario (Pages + Components)](docs/3-interface.md)
